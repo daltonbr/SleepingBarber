@@ -65,7 +65,7 @@ public class CustomerController : MonoBehaviour {
 			//var rotation = Quaternion.LookRotation(target - transform.position);
 			//transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.fixedDeltaTime * dampingLook);
 
-			rb2D.AddForce(moveDirection.normalized * patrolVelocity * Time.fixedDeltaTime * moveDirection.magnitude);
+			rb2D.AddForce(moveDirection.normalized * patrolVelocity * Time.fixedDeltaTime/* * moveDirection.magnitude*/);
 			//Debug.Log(moveDirection.normalized * patrolVelocity * Time.fixedDeltaTime + "" + Time.fixedDeltaTime);
 		}  
 	}

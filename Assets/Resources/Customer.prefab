@@ -52,7 +52,7 @@ Rigidbody2D:
   m_GameObject: {fileID: 1000011202155018}
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 1
   m_AngularDrag: 0
   m_GravityScale: 0
   m_IsKinematic: 0
@@ -87,11 +87,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb2D: {fileID: 0}
   served: 0
-  waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  patrolVelocity: 30
+  reception: {fileID: 0}
+  patrolVelocity: 100
   loop: 0
   dampingLook: 50
   pauseDuration: 100
