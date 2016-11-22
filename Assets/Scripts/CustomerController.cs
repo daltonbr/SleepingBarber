@@ -4,6 +4,7 @@ using System.Collections;
 public class CustomerController : MonoBehaviour {
 
 	public Rigidbody2D rb2D;
+	public bool waiting;
     public bool served;					 // control if the customer has their hair cut or not
 	//public Transform[] waypoints;         // The amount of Waypoint you want
 	public Transform reception;
