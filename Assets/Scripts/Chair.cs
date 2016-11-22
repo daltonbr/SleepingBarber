@@ -7,4 +7,6 @@ public class Chair : MonoBehaviour {
 
     public GameObject customer { get; set; }
 
+
+
 }

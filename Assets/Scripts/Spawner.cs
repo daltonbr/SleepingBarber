@@ -5,15 +5,20 @@ public class Spawner : MonoBehaviour {
 
     public GameObject customerPrefab;
 
-    public int spawnTime = 3000; // in ms
-	// Use this for initialization
-	void Start () {
-        for (int i = 0; i < 4; i++)
-            Instantiate(customerPrefab, transform.position, Quaternion.identity);
+    public int spawnTime = 3; // in seconds
+	public int totalNumberOfCustomers = 3;
+
+	void Start ()
+	{
+		for (int i = 0; i < totalNumberOfCustomers; i++) 
+		{
+			Invoke("spawnCustomer", spawnTime * i);  // invoke a method after some time
+		}
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	void spawnCustomer()
+	{
+		Debug.Log("spawning a customer");
+		Instantiate(customerPrefab, transform.position, Quaternion.identity);
 	}
 }

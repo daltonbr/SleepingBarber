@@ -9,11 +9,12 @@ public class BarberShop : MonoBehaviour {
     public Barber barber;
     public bool mutex;
     public GameObject customerTest;
+	public GameObject waypointReception;
 
     public void Start()
     {
         //Debug
-        waitingChairs[0].GetComponent<Chair>().customer = customerTest;
+   //     waitingChairs[0].GetComponent<Chair>().customer = customerTest;
 
         barberWorking();
     }
@@ -28,13 +29,13 @@ public class BarberShop : MonoBehaviour {
         foreach (GameObject chair in waitingChairs)
         {
             Chair chairScript = chair.GetComponent<Chair>();
-            Debug.Log(chairScript.occupied);
-            if (!chairScript.occupied) return chairScript.customer as GameObject;
+            //Debug.Log(chairScript.occupied);
+            if (chairScript.occupied) return chairScript.customer as GameObject;
         }
         return null;
     }
 
-    public bool checkForEmptyChair(Customer customer)
+    public bool checkForEmptyChair(CustomerController customer)
     {
         return false;
     }
@@ -59,8 +60,13 @@ public class BarberShop : MonoBehaviour {
     {
         while (getNextCustomer())
         {
-
+			
         }
+		//barber.GetComponent<Barber>().isAwake = true;
     }
 
+	public void OnTriggerEnter2D(Collider2D other)
+	{
+		Debug.Log(other.name);	
+	}
 }

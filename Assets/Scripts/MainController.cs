@@ -12,8 +12,6 @@ public class MainController : MonoBehaviour {
         //reference to the barbershop script
         barbershop = this.GetComponent<BarberShop>();
 
-        //Debug
-
 	}
 	
 }
