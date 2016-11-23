@@ -10,6 +10,7 @@ public class BarberShop : MonoBehaviour {
     public bool mutex;  // false: unlocked, true: locked
     public GameObject customerTest;
 	public GameObject waypointReception;
+	public Transform waypointExit;
 
     public void Start()
     {
@@ -51,7 +52,7 @@ public class BarberShop : MonoBehaviour {
 			{
 				mutex = false;
 				Debug.Log("All chairs occupied. Customer leaving!");
-				//TODO: send customer away
+				sendTo(customer,waypointExit);
 			}
 				
 		}
@@ -78,8 +79,19 @@ public class BarberShop : MonoBehaviour {
 		destinyChair.GetComponent<Chair>().customer = customer;
 		destinyChair.GetComponent<Chair>().occupied = true;
 		customer.GetComponent<CustomerController>().waiting = true;
+		customer.GetComponent<CustomerController>().chairToSit = destinyChair.transform;
 		mutex = false;  // releasing the mutex
     }
+
+	public void sendTo(GameObject customer, Transform destiny)
+	{
+		Debug.Log("Customer was sent to " + destiny.name);
+		//destinyChair.GetComponent<Chair>().customer = customer;
+		//destinyChair.GetComponent<Chair>().occupied = true;
+		customer.GetComponent<CustomerController>().leave(destiny);
+		//mutex = false;  // releasing the mutex
+
+	}
 
     public void sendToBarberChair(GameObject customer)
     {

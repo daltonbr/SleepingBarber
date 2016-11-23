@@ -2719,15 +2719,9 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1000013746643252, guid: 877d6d5ace9ba4de78cb2b8c1d7394d1, type: 2}
       propertyPath: m_Name
-      value: WayPointExit
+      value: WaypointExit
       objectReference: {fileID: 0}
-    - target: {fileID: 1000013746643252, guid: 877d6d5ace9ba4de78cb2b8c1d7394d1, type: 2}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: 1862873201189522682, guid: 0000000000000000d000000000000000,
-        type: 0}
-    m_RemovedComponents:
-    - {fileID: 0}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 877d6d5ace9ba4de78cb2b8c1d7394d1, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &1458287568 stripped
@@ -2822,6 +2816,7 @@ MonoBehaviour:
   mutex: 0
   customerTest: {fileID: 0}
   waypointReception: {fileID: 960800857}
+  waypointExit: {fileID: 1935721865}
 --- !u!4 &1538145358 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4000014177136128, guid: 06170d5068be17140a4fb2c323c7fb85,
@@ -3018,6 +3013,11 @@ Transform:
   m_PrefabParentObject: {fileID: 4000010903862968, guid: 06a6ac4f2f972d24cb7f26a88906dfae,
     type: 2}
   m_PrefabInternal: {fileID: 1921178505}
+--- !u!4 &1935721865 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4000012249632982, guid: 877d6d5ace9ba4de78cb2b8c1d7394d1,
+    type: 2}
+  m_PrefabInternal: {fileID: 1436525728}
 --- !u!1001 &1949567964
 Prefab:
   m_ObjectHideFlags: 0

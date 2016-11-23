@@ -5,9 +5,12 @@ public class CustomerController : MonoBehaviour {
 
 	public Rigidbody2D rb2D;
 	public bool waiting;
+	public bool leaving;
     public bool served;					 // control if the customer has their hair cut or not
 	//public Transform[] waypoints;         // The amount of Waypoint you want
 	public Transform reception;
+	public Transform exit;
+	public Transform chairToSit;
 	public float patrolVelocity = 3f;    // The walking velocity between Waypoints
 	public bool  loop = true;       	 // Do you want to keep repeating the Waypoints
 	public float dampingLook= 6.0f;      // How slowly to turn
@@ -21,9 +24,11 @@ public class CustomerController : MonoBehaviour {
 
     }
 
-    public void leave()
+    public void leave(Transform destiny)
     {
-
+		this.leaving = true;
+		Vector3 moveDirection = destiny.position - this.transform.position;
+		rb2D.AddForce(moveDirection.normalized * patrolVelocity * Time.fixedDeltaTime/* * moveDirection.magnitude*/);
     }
 
 	void Start (){
@@ -31,44 +36,36 @@ public class CustomerController : MonoBehaviour {
 		customerController = GetComponent<CustomerController>();
 		rb2D = GetComponent<Rigidbody2D>();
 		reception = GameObject.Find("MainController").transform.FindChild("WaypointReception");
+		exit = GameObject.Find("MainController").transform.FindChild("WaypointExit");
 		if (!reception) Debug.LogError("Waypoint Reception not found as a child of MainController");
+		if (!exit) Debug.LogError("WaypointExit not found as a child of MainController");
 		//Debug.Log(reception.name + " is at " + reception.transform);
 	}
 
 	void FixedUpdate () 
 	{
-
-		//if(currentWaypoint < waypoints.Length){
-			patrol();
-		//}else{    
-		//	if(loop){
-		//		currentWaypoint=0;
-		//	} 
-		//}
+		if (waiting) {
+			//send to appriated chair and stop moving for a while
+			sendTo(chairToSit);
+			return; }
+		if (leaving)
+		{
+			sendTo(exit);
+		}
+		else //going to reception
+		{
+			sendTo(reception);
+		}
 	}
-
-	void patrol ()
+		
+	void sendTo (Transform destiny)
 	{
+		Vector3 moveDirection = destiny.position - this.transform.position;
 
-		//Vector3 target = this.waypoints[currentWaypoint].position;
-		//target.y = transform.position.y; // Keep waypoint at customer's height
-		Vector3 moveDirection = reception.transform.position - this.transform.position;
+		//TODO: adjust the rotation dinamically to face the destiny
+		//var rotation = Quaternion.LookRotation(target - transform.position);
+		//transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.fixedDeltaTime * dampingLook)
 
-		if(moveDirection.magnitude < 1f){
-			if (curTime == 0)
-				curTime = Time.time; // Pause over the Waypoint
-			if ((Time.time - curTime) >= pauseDuration){
-				//Debug.Log("waypoint++");
-				//currentWaypoint++;
-				curTime = 0;
-			}
-		}else{        
-			//var rotation = Quaternion.LookRotation(target - transform.position);
-			//transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.fixedDeltaTime * dampingLook);
-
-			rb2D.AddForce(moveDirection.normalized * patrolVelocity * Time.fixedDeltaTime/* * moveDirection.magnitude*/);
-			//Debug.Log(moveDirection.normalized * patrolVelocity * Time.fixedDeltaTime + "" + Time.fixedDeltaTime);
-		}  
+		rb2D.AddForce(moveDirection.normalized * patrolVelocity * Time.fixedDeltaTime);
 	}
-
 }

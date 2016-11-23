@@ -17,7 +17,7 @@ public class WaypointController : MonoBehaviour {
 	}
 
 	void OnTriggerStay2D (Collider2D other) {
-		Debug.Log(other.name + " is at " + this.name);
+		//Debug.Log(other.name + " is at " + this.name);
 		if (!other.GetComponent<CustomerController>().waiting)
 		{
 			barberShopScript.handleCustomerInReception(other.gameObject);
@@ -25,6 +25,6 @@ public class WaypointController : MonoBehaviour {
 	}
 
 	void OnTriggerExit2D (Collider2D other) {
-		Debug.Log(other.name + " has left the " + this.name);
+		//Debug.Log(other.name + " has left the " + this.name);
 	}
 }
