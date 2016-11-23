@@ -17,7 +17,7 @@ public class CustomerController : MonoBehaviour {
 	public float pauseDuration = 0;      // How long to pause at a Waypoint
 	private float curTime;
 	private int currentWaypoint = 0;
-	private CustomerController customerController; // reference to the customer' script
+	private BarberShop barberShopScript;
 	//private Quaternion qTo;
 	//public float speed = 85.0f;  // Degrees per second
 
@@ -27,22 +27,10 @@ public class CustomerController : MonoBehaviour {
 		//     or maybe just yelling at him
 		barber.wakeUp();
 	}
-
-    public void checkForChairs()
-    {
-
-    }
 		
-    public void leave(Transform destiny)
-    {
-		this.leaving = true;
-		Vector3 moveDirection = destiny.position - this.transform.position;
-		rb2D.AddForce(moveDirection.normalized * patrolVelocity * Time.fixedDeltaTime/* * moveDirection.magnitude*/);
-    }
-
 	void Start (){
 
-		customerController = GetComponent<CustomerController>();
+		barberShopScript = GameObject.Find("MainController").GetComponent<BarberShop>();
 		rb2D = GetComponent<Rigidbody2D>();
 		reception = GameObject.Find("MainController").transform.FindChild("WaypointReception");
 		exit = GameObject.Find("MainController").transform.FindChild("WaypointExit");
@@ -68,7 +56,7 @@ public class CustomerController : MonoBehaviour {
 		}
 	}
 		
-	void sendTo (Transform destiny)
+	public void sendTo (Transform destiny)
 	{
 		Vector3 moveDirection = destiny.position - this.transform.position;
 

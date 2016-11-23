@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Spawner : MonoBehaviour {
 
@@ -7,9 +8,15 @@ public class Spawner : MonoBehaviour {
 
     public int spawnTime = 3; // in seconds
 	public int totalNumberOfCustomers = 3;
+	public Text textCustomersValue;
+	//private int customersTotalCount;
+	public BarberShop barberShopScript;
 
 	void Start ()
 	{
+		barberShopScript = GameObject.Find("MainController").GetComponent<BarberShop>();
+		textCustomersValue  = GameObject.Find("TextCustomersValue").GetComponent<Text>();
+
 		for (int i = 0; i < totalNumberOfCustomers; i++) 
 		{
 			Invoke("spawnCustomer", spawnTime * i);  // invoke a method after some time
@@ -18,6 +25,9 @@ public class Spawner : MonoBehaviour {
 
 	void spawnCustomer()
 	{
+		barberShopScript.customersTotalCount++;
+		textCustomersValue.text = barberShopScript.customersTotalCount.ToString();
+
 		Debug.Log("spawning a customer");
 		Instantiate(customerPrefab, transform.position, Quaternion.identity);
 	}
