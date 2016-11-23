@@ -21,7 +21,9 @@ public class CustomerController : MonoBehaviour {
 
 	public void wakeUpBarber(Barber barber)
 	{
-		barber.isAwake = true;
+		//TODO animate Customer going to the barber and waking up him
+		//     or maybe just yelling at him
+		barber.wakeUp();
 	}
 
     public void checkForChairs()
