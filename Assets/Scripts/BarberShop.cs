@@ -20,11 +20,6 @@ public class BarberShop : MonoBehaviour {
         barberWorking();
     }
 
-    public void makeBarberCutHair()
-    {
-
-    }
-
     public GameObject getNextCustomer()
     {
         foreach (GameObject chair in waitingChairs)
@@ -95,23 +90,31 @@ public class BarberShop : MonoBehaviour {
 
 	}
 
+	public void makeBarberCutHair()
+	{
+
+	}
+
     public void sendToBarberChair(GameObject customer)
     {
 
     }
 
-    public void cutHair()
+    public void cutHair(GameObject customer)
     {
-
+		sendToBarberChair(customer);
+		makeBarberCutHair();
     }
 
     public void barberWorking()
     {
-        while (getNextCustomer())
+		GameObject customerToCutHair;
+		while (customerToCutHair = getNextCustomer())
         {
-			
+			cutHair(customerToCutHair);
         }
-		//barber.GetComponent<Barber>().isAwake = true;
+		Debug.Log("Theres no more customers");
+		barber.sleep();
     }
 
 	public void OnTriggerEnter2D(Collider2D other)
