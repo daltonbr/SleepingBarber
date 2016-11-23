@@ -19,6 +19,11 @@ public class CustomerController : MonoBehaviour {
 	private int currentWaypoint = 0;
 	private CustomerController customerController; // reference to the customer' script
 
+	public void wakeUpBarber(Barber barber)
+	{
+		barber.isAwake = true;
+	}
+
     public void checkForChairs()
     {
 

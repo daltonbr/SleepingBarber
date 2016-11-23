@@ -43,6 +43,9 @@ public class BarberShop : MonoBehaviour {
 		if (!mutex) 
 		{
 			mutex = true; Debug.Log("mutex true");
+			if (!this.barber.isAwake)
+				customer.GetComponent<CustomerController>().wakeUpBarber(barber);
+
 			if (chair = this.checkForEmptyChair(customer))  // we have a free chair
 			{
 				Debug.Log("Find an empty chair:");

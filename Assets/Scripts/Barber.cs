@@ -3,10 +3,10 @@ using System.Collections;
 
 public class Barber : MonoBehaviour {
 
-    private bool isAwake { get; set; }
+    public bool isAwake { get; set; }
 
 	void Start () {
-        this.isAwake = true;
+        this.isAwake = false;
 	}
     
 }
