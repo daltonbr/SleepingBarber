@@ -43,7 +43,7 @@ public class BarberShop : MonoBehaviour {
 		if (!mutex) 
 		{
 			mutex = true; Debug.Log("mutex true");
-			if (!this.barber.isAwake)
+			if (!this.barber.isAwake())
 				customer.GetComponent<CustomerController>().wakeUpBarber(barber);
 
 			if (chair = this.checkForEmptyChair(customer))  // we have a free chair
@@ -57,7 +57,6 @@ public class BarberShop : MonoBehaviour {
 				Debug.Log("All chairs occupied. Customer leaving!");
 				sendTo(customer,waypointExit);
 			}
-				
 		}
 	}
 
