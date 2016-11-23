@@ -1225,6 +1225,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114000013965232638, guid: 633168fd97a8b054b8659b6de35e9a98,
+        type: 2}
+      propertyPath: spawnTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013965232638, guid: 633168fd97a8b054b8659b6de35e9a98,
+        type: 2}
+      propertyPath: totalNumberOfCustomers
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 633168fd97a8b054b8659b6de35e9a98, type: 2}
   m_IsPrefabParent: 0
@@ -2494,12 +2504,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 401a827206b85f2498ddcf5cd5eb3ee7, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &854281887 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114000010404088852, guid: 401a827206b85f2498ddcf5cd5eb3ee7,
-    type: 2}
-  m_PrefabInternal: {fileID: 854281886}
-  m_Script: {fileID: 11500000, guid: af979d5850fa1ca4f9a652f13e192dbd, type: 3}
 --- !u!1 &892734956
 GameObject:
   m_ObjectHideFlags: 0
@@ -2540,6 +2544,11 @@ Transform:
   - {fileID: 1073636950}
   m_Father: {fileID: 0}
   m_RootOrder: 9
+--- !u!1 &943038048 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000010828296228, guid: 401a827206b85f2498ddcf5cd5eb3ee7,
+    type: 2}
+  m_PrefabInternal: {fileID: 854281886}
 --- !u!1001 &954050457
 Prefab:
   m_ObjectHideFlags: 0
@@ -4261,7 +4270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 243131132}
-  spawnTimer: 3
+  spawnTimer: 6
 --- !u!114 &1538145357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4278,15 +4287,18 @@ MonoBehaviour:
   - {fileID: 954050458}
   - {fileID: 189642134}
   - {fileID: 1018368061}
-  barberChair: {fileID: 854281887}
+  waitingCount: 0
+  customersTotalCount: 0
+  customerController: {fileID: 0}
+  barberChair: {fileID: 943038048}
   barber: {fileID: 0}
   barberScript: {fileID: 0}
-  mutex: 0
   waypointReception: {fileID: 960800857}
   waypointExit: {fileID: 1935721865}
   textCustomersValue: {fileID: 0}
   textWaitingValue: {fileID: 0}
   textChairsValue: {fileID: 0}
+  toggleMutex: {fileID: 0}
 --- !u!4 &1538145358 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4000014177136128, guid: 06170d5068be17140a4fb2c323c7fb85,

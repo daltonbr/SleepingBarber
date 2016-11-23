@@ -86,9 +86,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb2D: {fileID: 0}
+  waiting: 0
+  leaving: 0
   served: 0
   reception: {fileID: 0}
-  patrolVelocity: 100
+  exit: {fileID: 0}
+  patrolVelocity: 200
   loop: 0
   dampingLook: 50
   pauseDuration: 100

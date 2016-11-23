@@ -9,15 +9,16 @@ public class BarberShop : MonoBehaviour {
     public int waitingCount;
 	public int customersTotalCount;
 	public CustomerController customerController;
-    public Chair barberChair;
+    public GameObject barberChair;
     public GameObject barber;
 	public Barber barberScript;
-    public bool mutex;  // false: unlocked, true: locked
+    private bool mutex;  // false: unlocked, true: locked
 	public GameObject waypointReception;
 	public Transform waypointExit;
 	public Text textCustomersValue;
 	public Text textWaitingValue;
 	public Text textChairsValue;
+	public Toggle toggleMutex;		// reference to ToggleMutex Script
 
     public void Start()
     {
@@ -27,8 +28,9 @@ public class BarberShop : MonoBehaviour {
 		textCustomersValue  = GameObject.Find("TextCustomersValue").GetComponent<Text>();
 		textWaitingValue  = GameObject.Find("TextWaitingValue").GetComponent<Text>();
 		textChairsValue  = GameObject.Find("TextChairsValue").GetComponent<Text>();
+		toggleMutex = GameObject.Find("ToggleMutex").GetComponent<Toggle>();
 
-		barberWorking();
+		barberWorking();		// barber's loop
     }
 
     public GameObject getNextCustomer()
@@ -36,8 +38,7 @@ public class BarberShop : MonoBehaviour {
         foreach (GameObject chair in waitingChairs)
         {
             Chair chairScript = chair.GetComponent<Chair>();
-            //Debug.Log(chairScript.occupied);
-            if (chairScript.occupied) return chairScript.customer as GameObject;
+			if (chairScript.isOccupied()) return chairScript.customer.gameObject;
         }
         return null;
     }
@@ -45,38 +46,40 @@ public class BarberShop : MonoBehaviour {
 	public void handleCustomerInReception(GameObject customer)
 	{
 		GameObject chair;
-		Debug.Log(customer.name + " will be handled by the Barber!");
-		if (!mutex) 
+		if (!isLocked()) 
 		{
-			mutex = true; Debug.Log("mutex true");
-			if (!barberScript.isAwake())
-				customer.GetComponent<CustomerController>().wakeUpBarber(barberScript);
+			lockMutex();
+			// wakeup barber anyway
+			barberScript.wakeUp();
 
-			if (chair = this.checkForEmptyChair(customer))  // we have a free chair
+			// if we have a free chair
+			if (chair = this.checkForEmptyChair())  
 			{
-				Debug.Log("Find an empty chair:");
-				waitingCount++;   // move this variable to MainController if we have time
+				Debug.Log(customer.name + " will wait in: " + chair.name);
+				waitingCount++;
 				textWaitingValue.text = waitingCount.ToString();
+				customer.GetComponent<CustomerController>().waiting = true;
 				sendToChair(customer, chair);
+				unlockMutex();
 			}
 			else // dont have a free chair, customer leaving
 			{
-				mutex = false;
 				Debug.Log("All chairs occupied. Customer leaving!");
 				customer.GetComponent<CustomerController>().leaving = true;
 				customersTotalCount--;
 				sendTo(customer,waypointExit);
+				unlockMutex();
 			}
 		}
 	}
 
-    public GameObject checkForEmptyChair(GameObject customer)
+    public GameObject checkForEmptyChair()
     {
 		foreach(GameObject chair in waitingChairs)
 		{
 			Chair chairScript = chair.GetComponent<Chair>();
 			//Debug.Log(chairScript.occupied);
-			if (!chairScript.occupied)  // if we have free chairs, return it
+			if (!chairScript.isOccupied())  // if we have free chairs, return it
 			{
 				Debug.Log(chairScript.gameObject.name + "is empty");
 				return chairScript.gameObject;
@@ -87,29 +90,38 @@ public class BarberShop : MonoBehaviour {
 
     public void sendToChair(GameObject customer, GameObject destinyChair)
     {
-        Debug.Log("Customer was sent to chair" + destinyChair.name);
-		destinyChair.GetComponent<Chair>().customer = customer;
-		destinyChair.GetComponent<Chair>().occupied = true;
-		customer.GetComponent<CustomerController>().waiting = true;
-		customer.GetComponent<CustomerController>().chairToSit = destinyChair.transform;
-		mutex = false;  // releasing thes mutex
+        Debug.Log("Customer was sent to " + destinyChair.name);
+		destinyChair.GetComponent<Chair>().occupyChair(customer);	//bind customer to a chair
+		customer.GetComponent<CustomerController>().associateToChair(destinyChair);  // bind chair to customer
+		unlockMutex();
     }
 
 	public void sendTo(GameObject customer, Transform destiny)
 	{
 		Debug.Log("Customer was sent to " + destiny.name);
 		this.textCustomersValue.text = this.customersTotalCount.ToString();
-		mutex = false;  // releasing the mutex
+		unlockMutex();
 	}
 
 	public void makeBarberCutHair()
 	{
-
+		
 	}
 
     public void sendToBarberChair(GameObject customer)
     {
 
+		// get the chair that the customer is seated
+		GameObject chairAssociated = customer.GetComponent<CustomerController>().getChairAssociated();
+
+		//free that chair
+		chairAssociated.GetComponent<Chair>().freeChair(chairAssociated);
+
+		// logically binds the customer to the barberChair
+		customer.GetComponent<CustomerController>().associateToChair(barberChair);
+
+		// move visually the customer to barberChair
+		sendTo(customer, barberChair.transform);
     }
 
     public void cutHair(GameObject customer)
@@ -122,7 +134,7 @@ public class BarberShop : MonoBehaviour {
     {
 		GameObject customerToCutHair;
 		while (customerToCutHair = getNextCustomer())
-        {
+		{
 			cutHair(customerToCutHair);
         }
 		Debug.Log("There is no more customers");
@@ -143,4 +155,20 @@ public class BarberShop : MonoBehaviour {
 		return 0;
 	}
 
+	public void lockMutex()
+	{
+		mutex = true;
+		toggleMutex.isOn = mutex;
+	}
+
+	public void unlockMutex()
+	{
+		mutex = false;
+		toggleMutex.isOn = mutex;
+	}
+
+	public bool isLocked()
+	{
+		return mutex;
+	}
 }

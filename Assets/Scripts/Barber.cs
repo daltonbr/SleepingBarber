@@ -19,12 +19,14 @@ public class Barber : MonoBehaviour {
 		//TODO animate Barber sleeping
 		Debug.Log("Barber Sleeps ZzZ");
 		this.Awake = false;
+		toggleAwake.isOn = this.Awake;
 	}
 
 	public void wakeUp() {
 		//TODO animate Barber waking up
 		Debug.Log("Barber is Waking Up");
 		this.Awake = true;
+		toggleAwake.isOn = this.Awake;
 	}
 
 	public bool isAwake() {
@@ -33,7 +35,7 @@ public class Barber : MonoBehaviour {
 
 	public void OnGUI()
 	{
-		toggleAwake.isOn = barberScript.Awake;
+		//toggleAwake.isOn = this.Awake;
 	}
 
 }

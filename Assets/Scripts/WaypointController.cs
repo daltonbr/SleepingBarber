@@ -13,7 +13,7 @@ public class WaypointController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D (Collider2D other) {
-		Debug.Log(other.name + " entered in the " + this.name);
+		//Debug.Log(other.name + " entered in the " + this.name);
 	}
 
 	void OnTriggerStay2D (Collider2D other) {

@@ -11,7 +11,7 @@ public class MainController : MonoBehaviour {
         
 	}
 	public void OnGUI() {
-		//just to show how to make a button on GUI
+		//just to show how to make a button on GUI - this is hardcoded, not dynamical
 		if (GUI.Button(new Rect(10, 10, 150, 100), "Pause"))
 		{
 			print("pause/unpause");
