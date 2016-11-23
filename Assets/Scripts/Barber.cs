@@ -1,11 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Barber : MonoBehaviour {
+	//public bool cutting;
+	public Barber barberScript; 	
+	public Toggle toggleAwake;		// reference to ToggleAwake Script
 
 	private bool Awake;
 
 	void Start () {
+		barberScript = this.GetComponent<Barber>();
+		toggleAwake = GameObject.Find("ToggleAwake").GetComponent<Toggle>();
 		sleep();
 	}
 
@@ -23,5 +29,11 @@ public class Barber : MonoBehaviour {
 
 	public bool isAwake() {
 		return this.Awake;
-	}    
+	}
+
+	public void OnGUI()
+	{
+		toggleAwake.isOn = barberScript.Awake;
+	}
+
 }

@@ -1,17 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class MainController : MonoBehaviour {
 
-    //public list<BarberShop> barberFranchise;
     public Transform spawnPoint;
     public int spawnTimer;
-    private BarberShop barbershop;
-    
+   
 	void Start () {
-        //reference to the barbershop script
-        barbershop = this.GetComponent<BarberShop>();
-
+        
 	}
-	
+	public void OnGUI() {
+		//just to show how to make a button on GUI
+		if (GUI.Button(new Rect(10, 10, 150, 100), "Pause"))
+		{
+			print("pause/unpause");
+			if (Time.timeScale == 0) Time.timeScale = 1;   // pause toggle / 1 = 100%, 0 = 0%
+				else Time.timeScale = 0;
+		}
+	}
+		
 }

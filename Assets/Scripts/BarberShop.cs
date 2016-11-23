@@ -6,18 +6,18 @@ public class BarberShop : MonoBehaviour {
     public GameObject[] waitingChairs;
     public int waiting;
     public Chair barberChair;
-    public Barber barber;
+    public GameObject barber;
+	public Barber barberScript;
     public bool mutex;  // false: unlocked, true: locked
-    public GameObject customerTest;
 	public GameObject waypointReception;
 	public Transform waypointExit;
 
     public void Start()
     {
-        //Debug
-   //     waitingChairs[0].GetComponent<Chair>().customer = customerTest;
-
-        barberWorking();
+		barber = GameObject.Find("Barber");
+		if(!barber) Debug.LogError("Barber GameObject not found!");
+		barberScript = barber.GetComponent<Barber>();
+		barberWorking();
     }
 
     public GameObject getNextCustomer()
@@ -38,8 +38,8 @@ public class BarberShop : MonoBehaviour {
 		if (!mutex) 
 		{
 			mutex = true; Debug.Log("mutex true");
-			if (!this.barber.isAwake())
-				customer.GetComponent<CustomerController>().wakeUpBarber(barber);
+			if (!barberScript.isAwake())
+				customer.GetComponent<CustomerController>().wakeUpBarber(barberScript);
 
 			if (chair = this.checkForEmptyChair(customer))  // we have a free chair
 			{
@@ -63,7 +63,7 @@ public class BarberShop : MonoBehaviour {
 			//Debug.Log(chairScript.occupied);
 			if (!chairScript.occupied)  // if we have free chairs, return it
 			{
-				Debug.Log("chair " + chairScript.gameObject.name + "is empty");
+				Debug.Log(chairScript.gameObject.name + "is empty");
 				return chairScript.gameObject;
 			}
 		}
@@ -77,7 +77,8 @@ public class BarberShop : MonoBehaviour {
 		destinyChair.GetComponent<Chair>().occupied = true;
 		customer.GetComponent<CustomerController>().waiting = true;
 		customer.GetComponent<CustomerController>().chairToSit = destinyChair.transform;
-		mutex = false;  // releasing the mutex
+		//barber.GetComponent<Barber>().awake = true;
+		mutex = false;  // releasing thes mutex
     }
 
 	public void sendTo(GameObject customer, Transform destiny)
@@ -113,12 +114,12 @@ public class BarberShop : MonoBehaviour {
         {
 			cutHair(customerToCutHair);
         }
-		Debug.Log("Theres no more customers");
-		barber.sleep();
+		Debug.Log("There is no more customers");
+		barberScript.sleep();
     }
 
 	public void OnTriggerEnter2D(Collider2D other)
 	{
-		Debug.Log(other.name);	
+		//Debug.Log(other.name);	
 	}
 }

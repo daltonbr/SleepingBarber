@@ -18,6 +18,8 @@ public class CustomerController : MonoBehaviour {
 	private float curTime;
 	private int currentWaypoint = 0;
 	private CustomerController customerController; // reference to the customer' script
+	//private Quaternion qTo;
+	//public float speed = 85.0f;  // Degrees per second
 
 	public void wakeUpBarber(Barber barber)
 	{
@@ -30,7 +32,7 @@ public class CustomerController : MonoBehaviour {
     {
 
     }
-
+		
     public void leave(Transform destiny)
     {
 		this.leaving = true;
@@ -54,6 +56,7 @@ public class CustomerController : MonoBehaviour {
 		if (waiting) {
 			//send to appriated chair and stop moving for a while
 			sendTo(chairToSit);
+			GameObject.Find("Barber").GetComponent<Barber>().wakeUp();
 			return; }
 		if (leaving)
 		{
@@ -69,10 +72,19 @@ public class CustomerController : MonoBehaviour {
 	{
 		Vector3 moveDirection = destiny.position - this.transform.position;
 
+		if (moveDirection.sqrMagnitude > 0.5f) {
+			//qTo = Quaternion.LookRotation(moveDirection);
+			
+		}
+//		float angle = Mathf.Atan2(moveDirection.y, destiny.position.x) * Mathf.Rad2Deg;
+//		Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
+//		transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * speed);
 		//TODO: adjust the rotation dinamically to face the destiny
-		//var rotation = Quaternion.LookRotation(target - transform.position);
-		//transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.fixedDeltaTime * dampingLook)
+		//var rotation = Quaternion.LookRotation(moveDirection);
+		//transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.fixedDeltaTime * dampingLook);
+		//transform.rotation = qTo;//Quaternion.RotateTowards(transform.rotation, qTo, speed * Time.fixedDeltaTime);
 
+		//Vector3 vectorToTarget = targetTransform.position - transform.position;
 		rb2D.AddForce(moveDirection.normalized * patrolVelocity * Time.fixedDeltaTime);
 	}
 }
