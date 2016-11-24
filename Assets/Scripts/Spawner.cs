@@ -9,7 +9,6 @@ public class Spawner : MonoBehaviour {
     public int spawnTime = 3; // in seconds
 	public int totalNumberOfCustomers = 3;
 	public Text textCustomersValue;
-	//private int customersTotalCount;
 	public BarberShop barberShopScript;
 
 	void Start ()
@@ -28,7 +27,7 @@ public class Spawner : MonoBehaviour {
 		barberShopScript.customersTotalCount++;
 		textCustomersValue.text = barberShopScript.customersTotalCount.ToString();
 
-		Debug.Log("spawning a customer");
+//		Debug.Log("spawning a customer");
 		Instantiate(customerPrefab, transform.position, Quaternion.identity);
 	}
 }

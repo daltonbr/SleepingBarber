@@ -7,7 +7,7 @@ public class Chair : MonoBehaviour {
 	public GameObject customer;
 
 	// release a chair
-	public void freeChair(GameObject chair)
+	public void freeChair()
 	{
 		occupied = false;
 		customer = null;
@@ -16,7 +16,7 @@ public class Chair : MonoBehaviour {
 	// bind a customer to a chair
 	public void occupyChair(GameObject _customer)
 	{
-		Debug.Log("occupying chair " + this.gameObject.name);
+		//Debug.Log("occupying chair " + this.gameObject.name);
 		occupied = true;
 		customer = _customer;
 	}

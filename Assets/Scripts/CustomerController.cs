@@ -15,16 +15,15 @@ public class CustomerController : MonoBehaviour {
 	public float dampingLook= 6.0f;      // How slowly to turn
 	public float pauseDuration = 0;      // How long to pause at a Waypoint
 	private float curTime;
-	private int currentWaypoint = 0;
 	private BarberShop barberShopScript;
 	private GameObject chairAssociated;	 // chair that the player will seat
 
-	public void wakeUpBarber(Barber barber)
-	{
-		//TODO animate Customer going to the barber and waking up him
-		//     or maybe just yelling at him
-		barber.wakeUp();
-	}
+//	public void wakeUpBarber(Barber barber)
+//	{
+//		//TODO animate Customer going to the barber and waking up him
+//		//     or maybe just yelling at him
+//		barber.wakeUp();
+//	}
 		
 	void Start (){
 
@@ -39,8 +38,9 @@ public class CustomerController : MonoBehaviour {
 	void FixedUpdate () 
 	{
 		if (waiting) {
-			//send to the apropriated chair
-			sendTo(chairAssociated.transform);
+			GameObject chair = this.getChairAssociated();
+			//send to the chair associtaded with this customer
+			if (chair) sendTo(chair.transform);
 			return;
 		}
 		if (leaving)
@@ -58,20 +58,20 @@ public class CustomerController : MonoBehaviour {
 		Vector3 moveDirection = destiny.position - this.transform.position;
 
 		if (moveDirection.sqrMagnitude > 0.5f) {
-			
+			rb2D.AddForce(moveDirection.normalized * patrolVelocity * Time.fixedDeltaTime);
 		}
-		rb2D.AddForce(moveDirection.normalized * patrolVelocity * Time.fixedDeltaTime);
 	}
 
-	// bind a chair to the customer
+	// bind (set) a chair to the customer
 	public void associateToChair(GameObject chair)
 	{
-		chairAssociated = chair;
+		this.chairAssociated = chair;
 	}
 
-	//set a chair to the customer
+	// get the chair associated with the customer
 	public GameObject getChairAssociated()
 	{
-		return chairAssociated;
+
+		return this.chairAssociated;
 	}
 }

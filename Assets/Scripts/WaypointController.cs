@@ -13,16 +13,16 @@ public class WaypointController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D (Collider2D other) {
-		//Debug.Log(other.name + " entered in the " + this.name);
-	}
-
-	void OnTriggerStay2D (Collider2D other) {
-		//Debug.Log(other.name + " is at " + this.name);
+		Debug.Log(other.name + " entered in the " + this.name);
 		if (!other.GetComponent<CustomerController>().waiting		// if not waiting AND not leaving...
 			&& !other.GetComponent<CustomerController>().leaving)   // we are going to the reception
 		{
 			barberShopScript.handleCustomerInReception(other.gameObject);
 		}
+	}
+
+	void OnTriggerStay2D (Collider2D other) {
+		//Debug.Log(other.name + " is at " + this.name);
 	}
 
 	void OnTriggerExit2D (Collider2D other) {

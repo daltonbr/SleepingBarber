@@ -34,7 +34,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010395053556}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8, y: 0, z: 0}
+  m_LocalPosition: {x: -8, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -53,5 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   customerPrefab: {fileID: 1000011202155018, guid: 8eac9f1d60f0e474b811d36eaff775bb,
     type: 2}
-  spawnTime: 3
-  totalNumberOfCustomers: 5
+  spawnTime: 2
+  totalNumberOfCustomers: 6
+  textCustomersValue: {fileID: 0}
+  barberShopScript: {fileID: 0}
