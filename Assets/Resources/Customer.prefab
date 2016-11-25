@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011202155018}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.5211544, y: -4.8264847, z: 0}
+  m_LocalPosition: {x: 7.009974, y: -2.5588417, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -96,6 +96,11 @@ MonoBehaviour:
   loop: 0
   dampingLook: 50
   pauseDuration: 100
+  skins:
+  - {fileID: 21300000, guid: 254c88eea0d4a3040a96ecaa80adb5b9, type: 3}
+  - {fileID: 21300016, guid: 254c88eea0d4a3040a96ecaa80adb5b9, type: 3}
+  - {fileID: 21300042, guid: 254c88eea0d4a3040a96ecaa80adb5b9, type: 3}
+  - {fileID: 21300058, guid: 254c88eea0d4a3040a96ecaa80adb5b9, type: 3}
 --- !u!212 &212000010912633666
 SpriteRenderer:
   m_ObjectHideFlags: 1

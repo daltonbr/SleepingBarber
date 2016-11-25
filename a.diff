@@ -1,0 +1,39 @@
+diff --git a/Assets/Scripts/BarberShop.cs b/Assets/Scripts/BarberShop.cs
+index 0b017d7..ab80082 100644
+--- a/Assets/Scripts/BarberShop.cs
++++ b/Assets/Scripts/BarberShop.cs
+@@ -4,6 +4,9 @@ using UnityEngine.UI;
+ 
+ public class BarberShop : MonoBehaviour {
+ 
++	//public bool waitingAnimation = false;
++	public bool pauseEditor = false;		// control wether the editor will autopause in key points
++
+     public GameObject[] waitingChairs;
+ 
+ 	public float cutHairDuration = 10f;
+@@ -130,13 +133,13 @@ public class BarberShop : MonoBehaviour {
+ 		GameObject customerCuttingHair = barberChairScript.customer.gameObject;
+ 		
+ 		Debug.Log("barber is cutting some hair =)");
+-		customerCuttingHair.GetComponent<CustomerController>().served = true;
+ 		yield return new WaitForSeconds(cutHairDuration);   // a little pause
+ 		//TODO: some animation would be nice though
+ 
+ 		// freeing the barber chair
+ 		barberChairScript.freeChair();
+ 
++		customerCuttingHair.GetComponent<CustomerController>().served = true;
+ 		customerCuttingHair.GetComponent<CustomerController>().leaving = true;
+ 		Debug.Log("Hair cutted");
+ 	}
+@@ -169,8 +172,8 @@ public class BarberShop : MonoBehaviour {
+ 			Time.timeScale = 0;
+ 			lockMutex();
+ 			sendToBarberChair(customer);
+-			StartCoroutine(makeBarberCutHairCoroutine());
+ 			unlockMutex();
++			StartCoroutine(makeBarberCutHairCoroutine());
+ 		}
+ 		// goes to standby
+ 			

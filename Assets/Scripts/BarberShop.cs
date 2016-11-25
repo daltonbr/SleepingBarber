@@ -132,8 +132,8 @@ public class BarberShop : MonoBehaviour {
 		// get the chair that the customer is seated
 		GameObject chairAssociated = customer.GetComponent<CustomerController>().getChairAssociated();
 
-		//free that chair
-		chairAssociated.GetComponent<Chair>().freeChair();
+		//free that chair (if any)
+		if (chairAssociated) chairAssociated.GetComponent<Chair>().freeChair();
 
 		// logically binds the customer to the barberChair
 		customer.GetComponent<CustomerController>().associateToChair(barberChair);

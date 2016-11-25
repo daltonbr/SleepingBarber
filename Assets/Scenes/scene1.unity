@@ -671,6 +671,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   barberScript: {fileID: 0}
   toggleAwake: {fileID: 0}
+  barbershopScript: {fileID: 0}
+  barberChairScript: {fileID: 0}
 --- !u!1 &189488719
 GameObject:
   m_ObjectHideFlags: 0
@@ -1195,7 +1197,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000012075866472, guid: 633168fd97a8b054b8659b6de35e9a98, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -8
+      value: -11
       objectReference: {fileID: 0}
     - target: {fileID: 4000012075866472, guid: 633168fd97a8b054b8659b6de35e9a98, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1228,7 +1230,7 @@ Prefab:
     - target: {fileID: 114000013965232638, guid: 633168fd97a8b054b8659b6de35e9a98,
         type: 2}
       propertyPath: spawnTime
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114000013965232638, guid: 633168fd97a8b054b8659b6de35e9a98,
         type: 2}
@@ -1243,6 +1245,62 @@ Transform:
   m_PrefabParentObject: {fileID: 4000012075866472, guid: 633168fd97a8b054b8659b6de35e9a98,
     type: 2}
   m_PrefabInternal: {fileID: 243131131}
+--- !u!1001 &306930418
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1538145358}
+    m_Modifications:
+    - target: {fileID: 4000012075866472, guid: 633168fd97a8b054b8659b6de35e9a98, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012075866472, guid: 633168fd97a8b054b8659b6de35e9a98, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012075866472, guid: 633168fd97a8b054b8659b6de35e9a98, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012075866472, guid: 633168fd97a8b054b8659b6de35e9a98, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012075866472, guid: 633168fd97a8b054b8659b6de35e9a98, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012075866472, guid: 633168fd97a8b054b8659b6de35e9a98, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012075866472, guid: 633168fd97a8b054b8659b6de35e9a98, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012075866472, guid: 633168fd97a8b054b8659b6de35e9a98, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013965232638, guid: 633168fd97a8b054b8659b6de35e9a98,
+        type: 2}
+      propertyPath: spawnTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013965232638, guid: 633168fd97a8b054b8659b6de35e9a98,
+        type: 2}
+      propertyPath: totalNumberOfCustomers
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010395053556, guid: 633168fd97a8b054b8659b6de35e9a98, type: 2}
+      propertyPath: m_Name
+      value: SpawnPoint2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 633168fd97a8b054b8659b6de35e9a98, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &320971138
 GameObject:
   m_ObjectHideFlags: 0
@@ -4034,11 +4092,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000012249632982, guid: 877d6d5ace9ba4de78cb2b8c1d7394d1, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 10
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4000012249632982, guid: 877d6d5ace9ba4de78cb2b8c1d7394d1, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4000012249632982, guid: 877d6d5ace9ba4de78cb2b8c1d7394d1, type: 2}
       propertyPath: m_LocalPosition.z
@@ -4287,6 +4345,8 @@ MonoBehaviour:
   - {fileID: 954050458}
   - {fileID: 189642134}
   - {fileID: 1018368061}
+  cutHairDuration: 10
+  timerToChair: 0
   waitingCount: 0
   customersTotalCount: 0
   customerController: {fileID: 0}

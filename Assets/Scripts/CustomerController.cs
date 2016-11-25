@@ -16,8 +16,8 @@ public class CustomerController : MonoBehaviour {
 	public float dampingLook= 6.0f;      // How slowly to turn
 	public float pauseDuration = 0;      // How long to pause at a Waypoint
 	private float curTime;
-	//private BarberShop barberShopScript;
 	private GameObject chairAssociated;	 // chair that the player will seat
+	public Sprite[] skins;
 		
 	void Start (){
 		rb2D = GetComponent<Rigidbody2D>();
@@ -25,6 +25,7 @@ public class CustomerController : MonoBehaviour {
 		exit = GameObject.Find("MainController").transform.FindChild("WaypointExit");
 		if (!reception) Debug.LogError("Waypoint Reception not found as a child of MainController");
 		if (!exit) Debug.LogError("WaypointExit not found as a child of MainController");
+		this.GetComponent<SpriteRenderer>().sprite = skins[Random.Range(0,skins.Length)];
 	}
 
 	void FixedUpdate () 

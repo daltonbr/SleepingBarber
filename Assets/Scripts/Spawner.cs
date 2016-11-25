@@ -6,7 +6,8 @@ public class Spawner : MonoBehaviour {
 
     public GameObject customerPrefab;
 
-    public int spawnTime = 3; // in seconds
+    public int minSpawnTime = 2; // in seconds
+	public int maxSpawnTime = 5; // in seconds
 	public int totalNumberOfCustomers = 3;
 	public Text textCustomersValue;
 	public BarberShop barberShopScript;
@@ -18,7 +19,7 @@ public class Spawner : MonoBehaviour {
 
 		for (int i = 0; i < totalNumberOfCustomers; i++) 
 		{
-			Invoke("spawnCustomer", spawnTime * i);  // invoke a method after some time
+			Invoke("spawnCustomer", Random.Range(minSpawnTime, maxSpawnTime) * i);  // invoke a method after some random time
 		}
     }
 
