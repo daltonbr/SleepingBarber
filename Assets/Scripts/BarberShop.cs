@@ -6,7 +6,7 @@ public class BarberShop : MonoBehaviour {
 
     public GameObject[] waitingChairs;
 
-	public float cutHairDuration = 10f;
+	public float cutHairDuration = 5f;
 	public float timerToChair = 0f;  // do we really need a timer here?
     public int waitingCount;
 	public int customersTotalCount;
@@ -32,14 +32,6 @@ public class BarberShop : MonoBehaviour {
 		textChairsValue  = GameObject.Find("TextChairsValue").GetComponent<Text>();
 		toggleMutex = GameObject.Find("ToggleMutex").GetComponent<Toggle>();
     }
-
-	IEnumerator smallTimer() 
-	{
-		Debug.Log("pretimer");
-		yield return new WaitForSeconds(4);
-		Debug.Log("postimer");
-
-	}
 
     public GameObject getNextCustomer()
     {
@@ -77,14 +69,8 @@ public class BarberShop : MonoBehaviour {
 				textWaitingValue.text = waitingCount.ToString();
 				customer.GetComponent<CustomerController>().waiting = true;
 				//this need to be a coroutine, because we need to set a timer
-				StartCoroutine(sendToChair(customer, chair));	
-
-				// awake barber if he is sleeping
-//				if(!barberScript.isAwake())
-//				{
-//					barberScript.wakeUp(); 
-//					Debug.Log("waking up barber");
-//				}
+				
+				sendToChair(customer, chair);
 			}
 			else // dont have a free chair, customer leaving
 			{
@@ -103,7 +89,7 @@ public class BarberShop : MonoBehaviour {
 		{
 			Chair chairScript = chair.GetComponent<Chair>();
 			//Debug.Log(chairScript.occupied);
-			if (!chairScript.isOccupied())  // if we have free chairs, return it
+			if (!chairScript.associated && !chairScript.isOccupied())  // if we have free chairs, return it
 			{
 				//Debug.Log(chairScript.gameObject.name + "is empty");
 				return chairScript.gameObject;
@@ -112,14 +98,11 @@ public class BarberShop : MonoBehaviour {
         return null;
     }
 
-    IEnumerator sendToChair(GameObject customer, GameObject destinyChair)
+    void sendToChair(GameObject customer, GameObject destinyChair)
     {
         Debug.Log("Customer was sent to " + destinyChair.name);
-		destinyChair.GetComponent<Chair>().occupyChair(customer);	//bind customer to a chair
+		//destinyChair.GetComponent<Chair>().occupyChair(customer);	//bind customer to a chair
 		customer.GetComponent<CustomerController>().associateToChair(destinyChair);  // bind chair to customer
-		Debug.Log(" ----> going to " + destinyChair.name + " @" + Time.time);
-		yield return new WaitForSeconds(timerToChair);   // a little pause
-		Debug.Log(" ----> arrive at " + destinyChair.name + " @" + Time.time);
     }
 
 	// IEnumerator is needed in order to make a time pause - this is a coroutine
@@ -159,6 +142,7 @@ public class BarberShop : MonoBehaviour {
 
 		// bind the chair to the customer (this is not ideal, we have cross-references here)
 		barberChair.GetComponent<Chair>().occupyChair(customer);
+		Debug.Log ("Barber Chair is being occupied");
     }
 
     public void aquireCustomer(GameObject customer)
@@ -166,7 +150,6 @@ public class BarberShop : MonoBehaviour {
 		Debug.Log("barber is about to call the customer"); 
 		if (!isLocked())
 		{
-			Time.timeScale = 0;
 			lockMutex();
 			sendToBarberChair(customer);
 			StartCoroutine(makeBarberCutHairCoroutine());
@@ -175,28 +158,6 @@ public class BarberShop : MonoBehaviour {
 		// goes to standby
 			
     }
-
-//	public void FixedUpdate ()
-//	{
-//		
-//	}
-
-//    public void barberWorking()
-//    {
-//		Debug.Log("barber's loop");
-//		//Time.timeScale = 0;
-//		GameObject customerToCutHair;
-//
-//		if (customerToCutHair = getNextCustomer())  // return null only if there isnt any more customers
-//		{
-//			Debug.Log("Barber aquired a costumer");
-//			Time.timeScale = 0;
-//			aquireCustomer(customerToCutHair);
-//        }
-//		Debug.Log("There is no more customers");
-//		//Time.timeScale = 0;
-//		barberScript.sleep();
-//    }
 
 	//TODO: this is optional...not really needed if we set the number of waiting chairs manually
 	public int countChairsOnTheScene()  // minus the BarberChair

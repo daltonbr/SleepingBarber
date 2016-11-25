@@ -18,17 +18,8 @@ public class CustomerController : MonoBehaviour {
 	private float curTime;
 	//private BarberShop barberShopScript;
 	private GameObject chairAssociated;	 // chair that the player will seat
-
-//	public void wakeUpBarber(Barber barber)
-//	{
-//		//TODO animate Customer going to the barber and waking up him
-//		//     or maybe just yelling at him
-//		barber.wakeUp();
-//	}
 		
 	void Start (){
-
-		//barberShopScript = GameObject.Find("MainController").GetComponent<BarberShop>();
 		rb2D = GetComponent<Rigidbody2D>();
 		reception = GameObject.Find("MainController").transform.FindChild("WaypointReception");
 		exit = GameObject.Find("MainController").transform.FindChild("WaypointExit");
@@ -68,13 +59,16 @@ public class CustomerController : MonoBehaviour {
 	// bind (set) a chair to the customer
 	public void associateToChair(GameObject chair)
 	{
+		if (chair) {
+			Chair chairScript = chair.GetComponent<Chair> ();
+			chairScript.associated = true;
+		}
 		this.chairAssociated = chair;
 	}
 
 	// get the chair associated with the customer
 	public GameObject getChairAssociated()
 	{
-
 		return this.chairAssociated;
 	}
 }

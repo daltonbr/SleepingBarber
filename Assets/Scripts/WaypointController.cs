@@ -26,12 +26,6 @@ public class WaypointController : MonoBehaviour {
 		{
 			Debug.Log("handleCustomer");
 			barberShopScript.handleCustomerInReception(other.gameObject);
-		
-			// awake the barber if he is sleeping
-			if(!barberScript.isAwake())
-			{
-				barberScript.wakeUp();
-			}
 		}
 
 		//Debug.Log(other.name + " is at " + this.name);
