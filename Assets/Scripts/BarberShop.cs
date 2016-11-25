@@ -111,8 +111,10 @@ public class BarberShop : MonoBehaviour {
 		// references
 		Chair barberChairScript = barberChair.GetComponent<Chair>();
 		GameObject customerCuttingHair = barberChairScript.customer.gameObject;
-		
+		//GameObject explosion = customerCuttingHair.GetComponent<CustomerController>().explosion;
+
 		Debug.Log("barber is cutting some hair =)");
+
 		customerCuttingHair.GetComponent<CustomerController>().served = true;
 		yield return new WaitForSeconds(cutHairDuration);   // a little pause
 		//TODO: some animation would be nice though
@@ -121,6 +123,12 @@ public class BarberShop : MonoBehaviour {
 		barberChairScript.freeChair();
 
 		customerCuttingHair.GetComponent<CustomerController>().leaving = true;
+		if (Random.Range(0,3) == 0)  // chance of customer's death
+		{
+			customerCuttingHair.GetComponent<SpriteRenderer>().enabled = false;  //dont draw the skin of the customer
+			Transform explosion = customerCuttingHair.transform.GetChild(0).transform;  //enable explosion
+			explosion.gameObject.SetActive(true);
+		}
 		Debug.Log("Hair cutted");
 	}
 
@@ -155,8 +163,6 @@ public class BarberShop : MonoBehaviour {
 			StartCoroutine(makeBarberCutHairCoroutine());
 			unlockMutex();
 		}
-		// goes to standby
-			
     }
 
 	//TODO: this is optional...not really needed if we set the number of waiting chairs manually
@@ -180,7 +186,6 @@ public class BarberShop : MonoBehaviour {
 		Debug.Log(" ----  (UN)lockMutex");
 		mutex = false;
 		toggleMutex.isOn = mutex;
-		//this.SendMessage("mutexAvailableBroadcast");
 	}
 
 	public bool isLocked()

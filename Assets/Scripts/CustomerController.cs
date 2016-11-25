@@ -17,6 +17,7 @@ public class CustomerController : MonoBehaviour {
 	public float pauseDuration = 0;      // How long to pause at a Waypoint
 	private float curTime;
 	private GameObject chairAssociated;	 // chair that the player will seat
+	public GameObject deathParticle;
 	public Sprite[] skins;
 		
 	void Start (){
@@ -26,6 +27,7 @@ public class CustomerController : MonoBehaviour {
 		if (!reception) Debug.LogError("Waypoint Reception not found as a child of MainController");
 		if (!exit) Debug.LogError("WaypointExit not found as a child of MainController");
 		this.GetComponent<SpriteRenderer>().sprite = skins[Random.Range(0,skins.Length)];
+		deathParticle = GameObject.Find("DeathParticle");
 	}
 
 	void FixedUpdate () 
