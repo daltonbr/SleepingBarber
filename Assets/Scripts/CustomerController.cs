@@ -6,6 +6,7 @@ public class CustomerController : MonoBehaviour {
 	public Rigidbody2D rb2D;
 	public bool waiting;
 	public bool leaving;
+	public bool cutting;
     public bool served;					 // control if the customer has their hair cut or not
 	public Transform reception;
 	public Transform exit;
@@ -15,7 +16,7 @@ public class CustomerController : MonoBehaviour {
 	public float dampingLook= 6.0f;      // How slowly to turn
 	public float pauseDuration = 0;      // How long to pause at a Waypoint
 	private float curTime;
-	private BarberShop barberShopScript;
+	//private BarberShop barberShopScript;
 	private GameObject chairAssociated;	 // chair that the player will seat
 
 //	public void wakeUpBarber(Barber barber)
@@ -27,7 +28,7 @@ public class CustomerController : MonoBehaviour {
 		
 	void Start (){
 
-		barberShopScript = GameObject.Find("MainController").GetComponent<BarberShop>();
+		//barberShopScript = GameObject.Find("MainController").GetComponent<BarberShop>();
 		rb2D = GetComponent<Rigidbody2D>();
 		reception = GameObject.Find("MainController").transform.FindChild("WaypointReception");
 		exit = GameObject.Find("MainController").transform.FindChild("WaypointExit");
@@ -37,20 +38,22 @@ public class CustomerController : MonoBehaviour {
 
 	void FixedUpdate () 
 	{
-		if (waiting) {
-			GameObject chair = this.getChairAssociated();
-			//send to the chair associtaded with this customer
-			if (chair) sendTo(chair.transform);
-			return;
-		}
 		if (leaving)
 		{
 			sendTo(exit);
+			return;
 		}
-		else //going to reception
+
+		GameObject chair = this.getChairAssociated();
+		//send to the chair associtaded with this customer
+		if (chair)
 		{
-			sendTo(reception);
+			sendTo(chair.transform);
+			return;
 		}
+
+		// else...going to reception
+		sendTo(reception);
 	}
 		
 	public void sendTo (Transform destiny)

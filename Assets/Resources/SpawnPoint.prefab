@@ -53,7 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   customerPrefab: {fileID: 1000011202155018, guid: 8eac9f1d60f0e474b811d36eaff775bb,
     type: 2}
-  spawnTime: 2
-  totalNumberOfCustomers: 6
+  spawnTime: 1
+  totalNumberOfCustomers: 1
   textCustomersValue: {fileID: 0}
   barberShopScript: {fileID: 0}

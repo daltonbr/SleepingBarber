@@ -10,6 +10,7 @@ public class Chair : MonoBehaviour {
 	public void freeChair()
 	{
 		occupied = false;
+		customer.GetComponent<CustomerController>().associateToChair(null);
 		customer = null;
 	}
 
@@ -19,6 +20,7 @@ public class Chair : MonoBehaviour {
 		//Debug.Log("occupying chair " + this.gameObject.name);
 		occupied = true;
 		customer = _customer;
+		customer.GetComponent<CustomerController>().associateToChair(this.gameObject);
 	}
 
 	public bool isOccupied()

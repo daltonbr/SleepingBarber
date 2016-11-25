@@ -7,7 +7,7 @@ public class Barber : MonoBehaviour {
 	public Barber barberScript; 	
 	public Toggle toggleAwake;		// reference to ToggleAwake Script
 	public BarberShop barbershopScript;
-	private bool Awake;
+	private bool awake;
 
 	void Start () {
 		barbershopScript = GameObject.Find("MainController").GetComponent<BarberShop>();
@@ -19,25 +19,38 @@ public class Barber : MonoBehaviour {
 	public void sleep() {
 		//TODO animate Barber sleeping
 		Debug.Log("Barber Sleeps ZzZ");
-		this.Awake = false;
-		toggleAwake.isOn = this.Awake;
+		this.awake = false;
+		toggleAwake.isOn = this.awake;
 	}
 
 	public void wakeUp() {
 		//TODO animate Barber waking up
 		Debug.Log("Barber is Waking Up");
-		this.Awake = true;
-		toggleAwake.isOn = this.Awake;
-		barbershopScript.barberWorking();		// barber's loop
+		this.awake = true;
+		toggleAwake.isOn = this.awake;
+		//barbershopScript.barberWorking();		// barber's loop
+		barberLoop();
 	}
 
-//	public void Update ()
-//	{
-//		barbershopScript.barberWorking();		// barber's loop
-//	}
+	public void barberLoop ()  //or FixedUpdate?
+	{
+		Debug.Log("barber's loop");
+		Time.timeScale = 0;
+		GameObject customerToCutHair;
+
+		while (customerToCutHair = barbershopScript.getNextCustomer())  // return null only if there isnt any more customers
+		{
+			Debug.Log("Barber aquired a costumer");
+			Time.timeScale = 0;
+			barbershopScript.aquireCustomer(customerToCutHair);
+		}
+		Debug.Log("There is no more customers");
+		Time.timeScale = 0;
+		barberScript.sleep();
+	}
 
 	public bool isAwake() {
-		return this.Awake;
+		return this.awake;
 	}
 
 	public void OnGUI()

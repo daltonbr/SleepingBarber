@@ -6,8 +6,8 @@ public class BarberShop : MonoBehaviour {
 
     public GameObject[] waitingChairs;
 
-	public float cutHairDuration = 3f;
-	public float timerToChair = 3f;  // do we really need a timer here?
+	public float cutHairDuration = 10f;
+	public float timerToChair = 0f;  // do we really need a timer here?
     public int waitingCount;
 	public int customersTotalCount;
 	public CustomerController customerController;
@@ -33,41 +33,46 @@ public class BarberShop : MonoBehaviour {
 		toggleMutex = GameObject.Find("ToggleMutex").GetComponent<Toggle>();
     }
 
+	IEnumerator smallTimer() 
+	{
+		Debug.Log("pretimer");
+		yield return new WaitForSeconds(4);
+		Debug.Log("postimer");
+
+	}
+
     public GameObject getNextCustomer()
     {
-		
-		if (!isLocked()) 
-		{
-			lockMutex();
+		//if (!isLocked())
+		//{
+		//	lockMutex();
 			Debug.Log("getting next customer");
 	        foreach (GameObject chair in waitingChairs)
 	        {
 	            Chair chairScript = chair.GetComponent<Chair>();
 				if (chairScript.isOccupied()) 
 				{
-					unlockMutex();
+		//			unlockMutex();
 					return chairScript.customer.gameObject;
 	        	}
 			}
-			unlockMutex();
+		//	unlockMutex();
 			Debug.Log("cant get next customer");
-		}
+		//}
 	    return null;
     }
 
 	public void handleCustomerInReception(GameObject customer)
 	{
-		Debug.Log("handling customer - preinfiniteloop");
 		if (!isLocked()) 
 		{
-			Debug.Log("handling customer");
 			GameObject chair;
 			lockMutex();
 
 			// if we have a free chair
 			if (chair = this.checkForEmptyChair())  
 			{
-				Debug.Log(customer.name + " will wait in: " + chair.name);
+//				Debug.Log(customer.name + " will wait in: " + chair.name);
 				waitingCount++;
 				textWaitingValue.text = waitingCount.ToString();
 				customer.GetComponent<CustomerController>().waiting = true;
@@ -75,18 +80,18 @@ public class BarberShop : MonoBehaviour {
 				StartCoroutine(sendToChair(customer, chair));	
 
 				// awake barber if he is sleeping
-				if(!barberScript.isAwake())
-				{
-					barberScript.wakeUp(); 
-					Debug.Log("waking up barber");
-				}
+//				if(!barberScript.isAwake())
+//				{
+//					barberScript.wakeUp(); 
+//					Debug.Log("waking up barber");
+//				}
 			}
 			else // dont have a free chair, customer leaving
 			{
 				Debug.Log("All chairs occupied. Customer leaving!");
 				customer.GetComponent<CustomerController>().leaving = true;
 				customersTotalCount--;
-				sendTo(customer,waypointExit);
+				this.textCustomersValue.text = this.customersTotalCount.ToString();
 			}
 			unlockMutex();
 		}
@@ -112,36 +117,31 @@ public class BarberShop : MonoBehaviour {
         Debug.Log("Customer was sent to " + destinyChair.name);
 		destinyChair.GetComponent<Chair>().occupyChair(customer);	//bind customer to a chair
 		customer.GetComponent<CustomerController>().associateToChair(destinyChair);  // bind chair to customer
+		Debug.Log(" ----> going to " + destinyChair.name + " @" + Time.time);
 		yield return new WaitForSeconds(timerToChair);   // a little pause
-		unlockMutex();
+		Debug.Log(" ----> arrive at " + destinyChair.name + " @" + Time.time);
     }
-
-	public void sendTo(GameObject customer, Transform destiny)
-	{
-		Debug.Log("Customer was sent to " + destiny.name);
-		this.textCustomersValue.text = this.customersTotalCount.ToString();
-		unlockMutex();
-	}
 
 	// IEnumerator is needed in order to make a time pause - this is a coroutine
 	IEnumerator makeBarberCutHairCoroutine() 
 	{
-		Debug.Log("barber is cutting some hair =)");
-		yield return new WaitForSeconds(cutHairDuration);   // a little pause
-		//TODO: some animation would be nice though
-
 		// references
 		Chair barberChairScript = barberChair.GetComponent<Chair>();
 		GameObject customerCuttingHair = barberChairScript.customer.gameObject;
+		
+		Debug.Log("barber is cutting some hair =)");
+		customerCuttingHair.GetComponent<CustomerController>().served = true;
+		yield return new WaitForSeconds(cutHairDuration);   // a little pause
+		//TODO: some animation would be nice though
 
 		// freeing the barber chair
 		barberChairScript.freeChair();
 
-		customerCuttingHair.GetComponent<CustomerController>().served = true;
 		customerCuttingHair.GetComponent<CustomerController>().leaving = true;
 		Debug.Log("Hair cutted");
 	}
 
+	//TODO: turn this to IEnumerator? (to pause)
     public void sendToBarberChair(GameObject customer)
     {
 		waitingCount--;
@@ -155,38 +155,48 @@ public class BarberShop : MonoBehaviour {
 		// logically binds the customer to the barberChair
 		customer.GetComponent<CustomerController>().associateToChair(barberChair);
 		customer.GetComponent<CustomerController>().waiting = false;	// he is no more waiting in the reception
+		customer.GetComponent<CustomerController>().cutting = true;	// he is no more waiting in the reception
 
 		// bind the chair to the customer (this is not ideal, we have cross-references here)
 		barberChair.GetComponent<Chair>().occupyChair(customer);
-	
-		// move, visually, the customer to barberChair
-		sendTo(customer, barberChair.transform);
     }
 
     public void aquireCustomer(GameObject customer)
     {
-		Debug.Log("barber is trying to aquire customer"); 
+		Debug.Log("barber is about to call the customer"); 
 		if (!isLocked())
 		{
+			Time.timeScale = 0;
 			lockMutex();
 			sendToBarberChair(customer);
 			StartCoroutine(makeBarberCutHairCoroutine());
 			unlockMutex();
 		}
+		// goes to standby
+			
     }
 
-    public void barberWorking()
-    {
-		Debug.Log("barber's loop");
-		GameObject customerToCutHair;
-		while (customerToCutHair = getNextCustomer())
-		{
-			Debug.Log("customer to Cut hair aquired!");	
-			aquireCustomer(customerToCutHair);
-        }
-		Debug.Log("There is no more customers");
-		barberScript.sleep();
-    }
+//	public void FixedUpdate ()
+//	{
+//		
+//	}
+
+//    public void barberWorking()
+//    {
+//		Debug.Log("barber's loop");
+//		//Time.timeScale = 0;
+//		GameObject customerToCutHair;
+//
+//		if (customerToCutHair = getNextCustomer())  // return null only if there isnt any more customers
+//		{
+//			Debug.Log("Barber aquired a costumer");
+//			Time.timeScale = 0;
+//			aquireCustomer(customerToCutHair);
+//        }
+//		Debug.Log("There is no more customers");
+//		//Time.timeScale = 0;
+//		barberScript.sleep();
+//    }
 
 	//TODO: this is optional...not really needed if we set the number of waiting chairs manually
 	public int countChairsOnTheScene()  // minus the BarberChair
@@ -199,14 +209,17 @@ public class BarberShop : MonoBehaviour {
 
 	public void lockMutex()
 	{
+		Debug.Log(" ----  lockMutex");
 		mutex = true;
 		toggleMutex.isOn = mutex;
 	}
 
 	public void unlockMutex()
 	{
+		Debug.Log(" ----  (UN)lockMutex");
 		mutex = false;
 		toggleMutex.isOn = mutex;
+		//this.SendMessage("mutexAvailableBroadcast");
 	}
 
 	public bool isLocked()
