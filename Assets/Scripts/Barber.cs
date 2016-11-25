@@ -30,7 +30,6 @@ public class Barber : MonoBehaviour {
 		Debug.Log("Barber is Waking Up");
 		this.awake = true;
 		toggleAwake.isOn = this.awake;
-		//barbershopScript.barberWorking();		// barber's loop
 		barberLoop();
 	}
 
@@ -54,11 +53,6 @@ public class Barber : MonoBehaviour {
 
 	public bool isAwake() {
 		return this.awake;
-	}
-
-	public void OnGUI()
-	{
-		//toggleAwake.isOn = this.Awake;
 	}
 
 }

@@ -6,8 +6,18 @@ public class Chair : MonoBehaviour {
 	private bool occupied;
 	public bool associated;
 	public GameObject customer;
-	private Barber barberScript;
+	public Barber barberScript;
+	public GameObject barber;
 
+	public void Awake()
+	{
+		barber = GameObject.Find("Barber");
+//		if(!barber) Debug.LogError("Barber GameObject not found!");
+		barberScript = barber.GetComponent<Barber>();
+
+		//barberScript = GameObject.Find("Barber").GetComponent<Barber>();
+	//	Debug.LogError("Chair.cs: barberscript not found!");
+	}
 	// release a chair
 	public void freeChair()
 	{
@@ -35,14 +45,19 @@ public class Chair : MonoBehaviour {
 		if (!this.name.Equals ("barberChair")) {
 			Debug.Log ("Char Triggered: " + other.name + " entered in the " + this.name);
 			GameObject customer = (GameObject)other.gameObject;
+
 			this.occupyChair (customer);
 
-			Barber barberScript = GameObject.Find ("Barber").GetComponent<Barber> ();
+			//TODO: reference bug here...sometimes we cant reach this script
+			barberScript = GameObject.Find("Barber").GetComponent<Barber>();
 
 			// awake the barber if he is sleeping
 			if (barberScript) {
 				if (!barberScript.isAwake ())
 					barberScript.wakeUp ();
+//				else {
+//					Debug.LogError("barberscript not found!");
+//				}
 			}
 		}
 	}

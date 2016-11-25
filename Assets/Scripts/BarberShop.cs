@@ -69,6 +69,8 @@ public class BarberShop : MonoBehaviour {
 				textWaitingValue.text = waitingCount.ToString();
 				customer.GetComponent<CustomerController>().waiting = true;
 				//this need to be a coroutine, because we need to set a timer
+
+				if (!checkForEmptyChair()) barberScript.wakeUp();
 				
 				sendToChair(customer, chair);
 			}

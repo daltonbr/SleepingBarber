@@ -129,6 +129,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114000010404088852, guid: 401a827206b85f2498ddcf5cd5eb3ee7,
+        type: 2}
+      propertyPath: barber
+      value: 
+      objectReference: {fileID: 186341377}
     - target: {fileID: 1000010828296228, guid: 401a827206b85f2498ddcf5cd5eb3ee7, type: 2}
       propertyPath: m_Name
       value: chair1
@@ -1666,24 +1671,9 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114000013965232638, guid: 633168fd97a8b054b8659b6de35e9a98,
-        type: 2}
-      propertyPath: spawnTime
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000013965232638, guid: 633168fd97a8b054b8659b6de35e9a98,
-        type: 2}
-      propertyPath: totalNumberOfCustomers
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 1000010395053556, guid: 633168fd97a8b054b8659b6de35e9a98, type: 2}
       propertyPath: m_Name
       value: SpawnPoint1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000013965232638, guid: 633168fd97a8b054b8659b6de35e9a98,
-        type: 2}
-      propertyPath: maxSpawnTime
-      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 633168fd97a8b054b8659b6de35e9a98, type: 2}
@@ -1856,29 +1846,9 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 114000013965232638, guid: 633168fd97a8b054b8659b6de35e9a98,
-        type: 2}
-      propertyPath: spawnTime
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000013965232638, guid: 633168fd97a8b054b8659b6de35e9a98,
-        type: 2}
-      propertyPath: totalNumberOfCustomers
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 1000010395053556, guid: 633168fd97a8b054b8659b6de35e9a98, type: 2}
       propertyPath: m_Name
       value: SpawnPoint3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000013965232638, guid: 633168fd97a8b054b8659b6de35e9a98,
-        type: 2}
-      propertyPath: minSpawnTime
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000013965232638, guid: 633168fd97a8b054b8659b6de35e9a98,
-        type: 2}
-      propertyPath: maxSpawnTime
-      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 633168fd97a8b054b8659b6de35e9a98, type: 2}
@@ -1892,11 +1862,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000012075866472, guid: 633168fd97a8b054b8659b6de35e9a98, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -11
+      value: -10.55
       objectReference: {fileID: 0}
     - target: {fileID: 4000012075866472, guid: 633168fd97a8b054b8659b6de35e9a98, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: -0.53
       objectReference: {fileID: 0}
     - target: {fileID: 4000012075866472, guid: 633168fd97a8b054b8659b6de35e9a98, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1930,7 +1900,7 @@ Prefab:
     - target: {fileID: 114000013965232638, guid: 633168fd97a8b054b8659b6de35e9a98,
         type: 2}
       propertyPath: totalNumberOfCustomers
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1000010395053556, guid: 633168fd97a8b054b8659b6de35e9a98, type: 2}
       propertyPath: m_Name
@@ -1940,6 +1910,10 @@ Prefab:
         type: 2}
       propertyPath: maxSpawnTime
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010395053556, guid: 633168fd97a8b054b8659b6de35e9a98, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 633168fd97a8b054b8659b6de35e9a98, type: 2}
@@ -2737,6 +2711,26 @@ Prefab:
     - target: {fileID: 1000013746643252, guid: 877d6d5ace9ba4de78cb2b8c1d7394d1, type: 2}
       propertyPath: m_Name
       value: WaypointReception
+      objectReference: {fileID: 0}
+    - target: {fileID: 61000012579278790, guid: 877d6d5ace9ba4de78cb2b8c1d7394d1,
+        type: 2}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 61000012579278790, guid: 877d6d5ace9ba4de78cb2b8c1d7394d1,
+        type: 2}
+      propertyPath: m_Offset.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 61000012579278790, guid: 877d6d5ace9ba4de78cb2b8c1d7394d1,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 61000012579278790, guid: 877d6d5ace9ba4de78cb2b8c1d7394d1,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 877d6d5ace9ba4de78cb2b8c1d7394d1, type: 2}
@@ -4251,6 +4245,21 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: 58000012938162936, guid: 401a827206b85f2498ddcf5cd5eb3ee7,
+        type: 2}
+      propertyPath: m_Radius
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 58000012938162936, guid: 401a827206b85f2498ddcf5cd5eb3ee7,
+        type: 2}
+      propertyPath: m_Offset.x
+      value: -0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 58000012938162936, guid: 401a827206b85f2498ddcf5cd5eb3ee7,
+        type: 2}
+      propertyPath: m_Offset.y
+      value: -1.45
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 401a827206b85f2498ddcf5cd5eb3ee7, type: 2}
   m_IsPrefabParent: 0
@@ -4923,6 +4932,11 @@ Prefab:
       propertyPath: m_Name
       value: chair4
       objectReference: {fileID: 0}
+    - target: {fileID: 114000010404088852, guid: 401a827206b85f2498ddcf5cd5eb3ee7,
+        type: 2}
+      propertyPath: barberScript
+      value: 
+      objectReference: {fileID: 186341378}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 401a827206b85f2498ddcf5cd5eb3ee7, type: 2}
   m_IsPrefabParent: 0

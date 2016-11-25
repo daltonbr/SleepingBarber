@@ -10,7 +10,6 @@ public class CustomerController : MonoBehaviour {
     public bool served;					 // control if the customer has their hair cut or not
 	public Transform reception;
 	public Transform exit;
-	//public Transform chairToSit;
 	public float patrolVelocity = 3f;    // The walking velocity between Waypoints
 	public bool  loop = true;       	 // Do you want to keep repeating the Waypoints
 	public float dampingLook= 6.0f;      // How slowly to turn

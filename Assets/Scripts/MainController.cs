@@ -14,10 +14,10 @@ public class MainController : MonoBehaviour {
 		//just to show how to make a button on GUI - this is hardcoded, not dynamical
 		if (GUI.Button(new Rect(10, 10, 150, 100), "Pause"))
 		{
-//			print("pause/unpause");
-//			if (Time.timeScale == 0) Time.timeScale = 1;   // pause toggle / 1 = 100%, 0 = 0%
-//				else Time.timeScale = 0;
-			Time.timeScale = 1;
+			print("pause/unpause");
+			if (Time.timeScale == 0) Time.timeScale = 1;   // pause toggle / 1 = 100%, 0 = 0%
+				else Time.timeScale = 0;
+//			Time.timeScale = 1;
 		}
 	}
 		
