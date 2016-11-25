@@ -17,7 +17,7 @@ TagManager:
   - Background
   - 
   - Characters
-  - 
+  - Decoration
   - 
   - 
   - 
@@ -54,9 +54,12 @@ TagManager:
   - name: Furniture
     uniqueID: 3189134789
     locked: 0
-  - name: Characters
-    uniqueID: 3930702811
-    locked: 0
   - name: UI
     uniqueID: 1077024111
+    locked: 0
+  - name: ForeGround
+    uniqueID: 1069386125
+    locked: 0
+  - name: Characters
+    uniqueID: 3930702811
     locked: 0
