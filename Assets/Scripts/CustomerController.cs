@@ -21,8 +21,8 @@ public class CustomerController : MonoBehaviour {
 		
 	void Start (){
 		rb2D = GetComponent<Rigidbody2D>();
-		reception = GameObject.Find("MainController").transform.FindChild("WaypointReception");
-		exit = GameObject.Find("MainController").transform.FindChild("WaypointExit");
+		reception = GameObject.Find("MainController").transform.Find("WaypointReception");
+		exit = GameObject.Find("MainController").transform.Find("WaypointExit");
 		if (!reception) Debug.LogError("Waypoint Reception not found as a child of MainController");
 		if (!exit) Debug.LogError("WaypointExit not found as a child of MainController");
 		this.GetComponent<SpriteRenderer>().sprite = skins[Random.Range(0,skins.Length)];
